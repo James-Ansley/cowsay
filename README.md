@@ -1,10 +1,10 @@
-# CowPySay
+# Python Cowsay
 
 A rewrite of cowsay in python. Allows for parsing of existing `.cow` files.
 
 ## Install
 
-    pip install cowpysay
+    pip install python-cowsay
 
 ## Usage
 

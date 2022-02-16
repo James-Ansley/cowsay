@@ -4,8 +4,8 @@ with open('README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='cowpysay',
-    version='1.0.2',
+    name='python-cowsay',
+    version='1.0.0',
     author='James Finnie-Ansley',
     description='A Cowsay clone in Python',
     long_description=long_description,
