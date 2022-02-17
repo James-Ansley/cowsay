@@ -56,7 +56,7 @@ ESCAPES = {
 }
 
 
-def read_dot_cow(f: TextIO) -> str:
+def read_dot_cow(f: TextIO, escapes: dict[str, str]=None) -> str:
     """
     Reads and parses a .cow file to a string. Unescapes characters in doing
     so. This function will search for a heredoc in the .cow file. If found,
@@ -67,11 +67,13 @@ def read_dot_cow(f: TextIO) -> str:
         characters
     :return: The cow
     """
+    if escapes is None:
+        escapes=ESCAPES
     the_cow = f.read()
     match = HEREDOC_PATTERN.search(the_cow)
     if match is not None:
         the_cow = match.group('the_cow')
-    for escape, replacement in ESCAPES.items():
+    for escape, replacement in escapes.items():
         the_cow = the_cow.replace(escape, replacement)
     return the_cow.strip('\r\n')
 
