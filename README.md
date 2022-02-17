@@ -17,7 +17,7 @@ message = """
 The most remarkable thing about my mother is that for thirty years she served
 the family nothing but leftovers.  The original meal has never been found.
 		-- Calvin Trillin
-"""
+""".strip()
 print(cowsay(message))
 ```
 
@@ -25,7 +25,7 @@ Will yield:
 
 ```
  __________________________________________ 
-/  The most remarkable thing about my      \
+/ The most remarkable thing about my       \
 | mother is that for thirty years she      |
 | served the family nothing but leftovers. |
 | The original meal has never been found.  |
@@ -39,13 +39,14 @@ Will yield:
                 ||     ||
 ```
 
-The arguments for these functions are:
+The parameters for these functions are:
+
 - `message` – a string to wrap in the text bubble
 - `cow='default'` – the name of the cow (valid names from `list_cows`)
 - `preset=None` – the original cowsay presets: `-bggpstwy`
 - `eyes=Option.eyes` – A custom eye string
 - `tongue=Option.tongue` – A custom tongue string
-- `width=40` – The width of the text bubble 
+- `width=40` – The width of the text bubble
 - `wrap_text=True` – Whether text should be wrapped in the bubble
 - `cowfile=None` – A custom string representing a cow
 
@@ -54,5 +55,53 @@ The arguments for these functions are:
 The available builtin cows can be found with `list_cows`. A cow can be chosen
 randomly from this list with `get_random_cow`.
 
+### Using Your Own Cows
+
 A custom `.cow` file can be parsed using the `read_dot_cow` function which takes
-a `TextIO` stream.
+a `TextIO` stream. I.e., You can either create a `TextIO` from a string or read
+a file.
+
+The `read_dot_cow` will look for the first heredoc in the steam and extract the
+heredoc contents. If no heredoc exists, the whole stream is used instead. Escape
+characters are then escaped. The default escape characters can be changed by
+passing in an optional `escape` dictionary parameter mapping escape codes to
+their chars.
+
+For example:
+```python
+from io import StringIO
+
+from cowsay import read_dot_cow, cowthink
+
+cow = read_dot_cow(StringIO("""
+$the_cow = <<EOC;
+         $thoughts
+          $thoughts
+           ___
+          (o o)
+         (  V  )
+        /--m-m-
+EOC
+"""))
+message = """
+Nothing is illegal if one hundred businessmen decide to do it.
+        -- Andrew Young
+""".strip()
+print(cowthink(message, cowfile=cow))
+```
+
+Will yield:
+```
+ ___________________________________ 
+( Nothing is illegal if one hundred )
+( businessmen decide to do it.      )
+(                                   )
+( -- Andrew Young                   )
+ ----------------------------------- 
+         o
+          o
+           ___
+          (o o)
+         (  V  )
+        /--m-m-
+```
