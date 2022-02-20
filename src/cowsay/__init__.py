@@ -147,7 +147,7 @@ def fit_text(text: str,
         lines = []
         paragraphs = re.split(r'(?:\r\n?|\n)\s+', text)
         for i in range(len(paragraphs)):
-            lines += wrap(paragraphs[i], width=width)
+            lines += wrap(paragraphs[i], width=width) or ' '
             lines.append('')
         lines.pop()
     return pad_lines(lines)
