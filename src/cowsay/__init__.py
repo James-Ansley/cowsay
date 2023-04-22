@@ -5,6 +5,7 @@ from os import PathLike
 from pathlib import Path, PurePath
 from textwrap import wrap
 from typing import TextIO
+from unicodedata import east_asian_width
 
 HEREDOC_PATTERN = re.compile(
     r'\$.* = <<["\']?(.*)["\']?;?(?P<the_cow>[\w\W]*)\1'
@@ -56,7 +57,7 @@ ESCAPES = {
 }
 
 
-def read_dot_cow(f: TextIO, escapes: dict[str, str]=None) -> str:
+def read_dot_cow(f: TextIO, escapes: dict[str, str] = None) -> str:
     """
     Reads and parses a .cow file to a string. Unescapes characters in doing
     so. This function will search for a heredoc in the .cow file. If found,
@@ -68,7 +69,7 @@ def read_dot_cow(f: TextIO, escapes: dict[str, str]=None) -> str:
     :return: The cow
     """
     if escapes is None:
-        escapes=ESCAPES
+        escapes = ESCAPES
     the_cow = f.read()
     match = HEREDOC_PATTERN.search(the_cow)
     if match is not None:
@@ -184,7 +185,28 @@ def make_bubble(text,
     This is the text that appears above the cows
     """
     lines = fit_text(text, width, wrap_text)
-    return wrap_bubble(lines, brackets)
+    return normalise_width(wrap_bubble(lines, brackets))
+
+
+def to_full_width(string):
+    """Converts non-full-width characters to full-width"""
+    # From: https://stackoverflow.com/a/4632373/18307756
+    neutral_width = "".join(chr(i) for i in range(ord(" "), ord("~")))
+    full_width = (
+            "\u3000"  # Full-Width Space
+            + "".join(chr(i) for i in range(ord("！"), ord("～")))
+    )
+    full = str.maketrans(neutral_width, full_width)
+    return string.translate(full)
+
+
+def normalise_width(cow):
+    """
+    If any full-width characters are found, convert all characters to full width
+    """
+    if any(east_asian_width(c) in ("W", "F", "A") for c in cow):
+        return to_full_width(cow)
+    return cow
 
 
 def cowsay(message,
