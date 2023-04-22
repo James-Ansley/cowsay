@@ -23,7 +23,7 @@ print(cowsay(message))
 
 Will yield:
 
-```
+```text
  __________________________________________ 
 / The most remarkable thing about my       \
 | mother is that for thirty years she      |
@@ -43,7 +43,7 @@ The parameters for these functions are:
 
 - `message` – a string to wrap in the text bubble
 - `cow='default'` – the name of the cow (valid names from `list_cows`)
-- `preset=None` – the original cowsay presets: `-bggpstwy`
+- `preset=None` – the original cowsay presets: `-bgpstwy`
 - `eyes=Option.eyes` – A custom eye string
 - `tongue=Option.tongue` – A custom tongue string
 - `width=40` – The width of the text bubble
@@ -68,6 +68,7 @@ passing in an optional `escape` dictionary parameter mapping escape codes to
 their chars.
 
 For example:
+
 ```python
 from io import StringIO
 
@@ -91,7 +92,8 @@ print(cowthink(message, cowfile=cow))
 ```
 
 Will yield:
-```
+
+```text
  ___________________________________ 
 ( Nothing is illegal if one hundred )
 ( businessmen decide to do it.      )
@@ -104,4 +106,65 @@ Will yield:
           (o o)
          (  V  )
         /--m-m-
+```
+
+## Full-Width Characters
+
+A bit of a hack at the moment, but if any full-width characters are found in the
+message string, ***all*** characters in the thought bubble are converted to
+full-width. For example:
+
+```text
+　＿＿＿＿＿＿＿＿＿＿＿＿　
+（　喵喵喵。我是一只猫。　）
+　－－－－－－－－－－－－　
+   o
+    o
+
+     |\_/|
+     |o o|__
+     --*--__\
+     C_C_(___)
+```
+
+This works fine when all characters in the message are full-width, but does not
+work so well when there is a mix of full- and neutral-width characters:
+
+```text
+　＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿　
+（　喵喵喵。Ｉ　ａｍ　ａ　ｃａｔ．　）
+　－－－－－－－－－－－－－－－－－　
+   o
+    o
+
+     |\_/|
+     |o o|__
+     --*--__\
+     C_C_(___)
+```
+
+Each full-width character still only counts as one character when setting the
+text width. For example:
+
+```python
+from cowsay import cowthink
+
+message = "喵喵喵。我是一只猫。我想吃鱼和喝牛奶。"
+print(cowthink(message, cow="kitten", width=10))
+```
+
+Will yield:
+
+```text
+　＿＿＿＿＿＿＿＿＿＿＿＿　
+（　喵喵喵。我是一只猫。　）
+（　我想吃鱼和喝牛奶。　　）
+　－－－－－－－－－－－－　
+   o
+    o
+
+     |\_/|
+     |o o|__
+     --*--__\
+     C_C_(___)
 ```
