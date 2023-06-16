@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from os import PathLike
 from pathlib import Path, PurePath
 from textwrap import wrap
-from typing import TextIO
+from typing import TextIO, Union, Dict, List
 from unicodedata import east_asian_width
 
 HEREDOC_PATTERN = re.compile(
@@ -57,7 +57,7 @@ ESCAPES = {
 }
 
 
-def read_dot_cow(f: TextIO, escapes: dict[str, str] = None) -> str:
+def read_dot_cow(f: TextIO, escapes: Dict[str, str] = None) -> str:
     """
     Reads and parses a .cow file to a string. Unescapes characters in doing
     so. This function will search for a heredoc in the .cow file. If found,
@@ -79,13 +79,13 @@ def read_dot_cow(f: TextIO, escapes: dict[str, str] = None) -> str:
     return the_cow.strip('\r\n')
 
 
-def list_cows(cow_path: str | PathLike[str] = COW_PEN):
+def list_cows(cow_path: Union[str, PathLike] = COW_PEN):
     """Lists all cow file names in the given directory"""
     cows = Path(cow_path).glob('*.cow')
     return [cow.stem for cow in cows]
 
 
-def get_random_cow(path: str | PathLike[str] = COW_PEN) -> str:
+def get_random_cow(path: Union[str, PathLike] = COW_PEN) -> str:
     """
     Searches the given dir for all .cow files and returns the name of a
     random one
@@ -134,7 +134,7 @@ def build_cow(message: str,
 
 def fit_text(text: str,
              width: int,
-             wrap_text: bool = True) -> list[str]:
+             wrap_text: bool = True) -> List[str]:
     """
     Wraps each paragraph in the given text to the specified width and pads
     each line such that they are all the same length with at least one space
@@ -159,7 +159,7 @@ def pad_lines(lines):
     return [f' {line:<{max_width}} ' for line in lines]
 
 
-def wrap_bubble(lines: list[str], ops: Bubble) -> str:
+def wrap_bubble(lines: List[str], ops: Bubble) -> str:
     """
     Puts text into a text bubble. This is done by just inserting the given
     bracket characters onto the ends of each line.
@@ -209,14 +209,14 @@ def normalise_width(cow):
     return cow
 
 
-def cowsay(message,
-           cow='default',
-           preset=None,
-           eyes=Option.eyes,
-           tongue=Option.tongue,
-           width=40,
-           wrap_text=True,
-           cowfile=None) -> str:
+def cowsay(message: str,
+           cow: str = 'default',
+           preset: str = None,
+           eyes: str = Option.eyes,
+           tongue: str = Option.tongue,
+           width: int = 40,
+           wrap_text: bool = True,
+           cowfile: str = None) -> str:
     """
     Similar to the cowsay command. Parameters are listed with their
     corresponding options in the cowsay command. Returns the resulting cowsay
@@ -239,14 +239,14 @@ def cowsay(message,
     return build_cow(message, the_cow, cow_ops, thought_ops, width, wrap_text)
 
 
-def cowthink(message,
-             cow='default',
-             preset=None,
-             eyes=Option.eyes,
-             tongue=Option.tongue,
-             width=40,
-             wrap_text=True,
-             cowfile=None) -> str:
+def cowthink(message: str,
+             cow: str = 'default',
+             preset: str = None,
+             eyes: str = Option.eyes,
+             tongue: str = Option.tongue,
+             width: int = 40,
+             wrap_text: bool = True,
+             cowfile: str = None) -> str:
     """
     Similar to the cowthink command. Parameters are listed with their
     corresponding options in the cowthink command. Returns the resulting
