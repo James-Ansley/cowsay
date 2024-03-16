@@ -18,4 +18,4 @@ All notable changes to this project will be documented in this file.
   the directory this references will be used when loading cows.
 - Changed cows back to original cowsay cows.
 
-[1.2.1]: https://github.com/James-Ansley/pipe-utils/compare/v1.1.1...v1.2.0
+[1.2.0]: https://github.com/James-Ansley/cowsay/compare/v1.1.1...v1.2.0
