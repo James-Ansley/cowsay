@@ -1,14 +1,18 @@
+import os
 import random
 import re
 from dataclasses import dataclass
 from os import PathLike
 from pathlib import Path, PurePath
 from textwrap import wrap
-from typing import TextIO, Union, Dict, List
+from typing import TextIO, Union, Dict, List, Final
 from unicodedata import east_asian_width
 
 HEREDOC_PATTERN = re.compile(
     r'\$.* = <<["\']?(.*)["\']?;?(?P<the_cow>[\w\W]*)\1'
+)
+PERL_STRING_ASSIGNMENT = re.compile(
+    r'(?:^|\n)(\$.+) = "(.+)";'
 )
 
 
@@ -18,7 +22,12 @@ class Option:
     tongue: str = '  '
 
 
-COW_PEN = (Path(__file__) / '..' / 'cows').resolve()
+COW_PATH = os.getenv("COWPATH")
+COW_PEN: Final[Path] = (
+    Path(COW_PATH)
+    if COW_PATH is not None else
+    (Path(__file__) / '..' / 'cows').resolve()
+)
 
 COW_OPTIONS = {
     'b': Option(eyes='=='),
@@ -73,7 +82,14 @@ def read_dot_cow(f: TextIO, escapes: Dict[str, str] = None) -> str:
     the_cow = f.read()
     match = HEREDOC_PATTERN.search(the_cow)
     if match is not None:
+        # If a cow heredoc is found, search for variable declarations and inline
+        replacements = {
+            k: v.replace("\\e", "\x1b")
+            for k, v in PERL_STRING_ASSIGNMENT.findall(the_cow)
+        }
         the_cow = match.group('the_cow')
+        for escape, replacement in replacements.items():
+            the_cow = the_cow.replace(escape, replacement)
     for escape, replacement in escapes.items():
         the_cow = the_cow.replace(escape, replacement)
     return the_cow.strip('\r\n')
