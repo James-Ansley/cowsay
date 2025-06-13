@@ -1,5 +1,6 @@
 # Python Cowsay
 
+[![Repository](https://img.shields.io/badge/james--ansley%2Fcowsay-102335?logo=codeberg&labelColor=07121A)](https://codeberg.org/james-ansley/cowsay)
 [![PyPi](https://img.shields.io/pypi/v/python-cowsay?label=PyPi&labelColor=%23ffd343&color=%230073b7)](https://pypi.org/project/python-cowsay/)
 [![License](https://img.shields.io/badge/GPL--3.0-green?label=license)](https://codeberg.org/james-ansley/cowsay/src/branch/main/LICENSE)
 
