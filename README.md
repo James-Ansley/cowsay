@@ -1,5 +1,8 @@
 # Python Cowsay
 
+[![PyPi](https://img.shields.io/pypi/v/python-cowsay?label=PyPi&labelColor=%23ffd343&color=%230073b7)](https://pypi.org/project/python-cowsay/)
+[![License](https://img.shields.io/badge/GPL--3.0-green?label=license)](https://codeberg.org/james-ansley/cowsay/src/branch/main/LICENSE)
+
 A rewrite of cowsay in python. Allows for parsing of existing `.cow` files.
 
 ## Install
@@ -158,7 +161,6 @@ Will yield:
 
 ## Parsing `.cow` Files
 
-As discussed in [this issue](https://github.com/James-Ansley/cowsay/issues/2),
 `.cow` files are just files containing Perl code. This causes some issues for
 more _advanced_ `.cow` files that do things like _define additional variables_
 that get used in the cow heredoc. Most notably, this happens when using tools
@@ -257,9 +259,7 @@ Will yield:
 
 The cow files that are installed by default in this package are taken from
 [the original cowsay repository](https://github.com/tnalpgge/rank-amateur-cowsay)
-Please see that repo for their corresponding license.
 
 The cows provided in this package, save for minor edits to resolve issues
 with parsing cow files, are otherwise provided as they were in the original
-cowsay repository. I do not take responsibility for the content of
-these cow files.
+cowsay repository.
