@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=65.0"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -19,10 +19,7 @@ classifiers = [
 ]
 
 [project.urls]
-repository = "https://github.com/James-Ansley/cowsay"
-
-[tool.setuptools.packages.find]
-where = ["src"]
+repository = "https://codeberg.org/james-ansley/cowsay"
 
 [tool.setuptools]
 include-package-data = true
