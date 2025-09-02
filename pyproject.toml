@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-cowsay"
-version = "1.2.1"
+version = "1.2.2"
 description = "A Cowsay clone in Python"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -19,7 +19,7 @@ classifiers = [
 ]
 
 [project.urls]
-repository = "https://codeberg.org/james-ansley/cowsay"
+repository = "https://codeberg.org/jamesansley/cowsay"
 
 [tool.setuptools]
 include-package-data = true

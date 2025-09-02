@@ -1,8 +1,8 @@
 # Python Cowsay
 
-[![Repository](https://img.shields.io/badge/james--ansley%2Fcowsay-102335?logo=codeberg&labelColor=07121A)](https://codeberg.org/james-ansley/cowsay)
+[![Repository](https://img.shields.io/badge/jamesansley%2Fcowsay-102335?logo=codeberg&labelColor=07121A)](https://codeberg.org/jamesansley/cowsay)
 [![PyPi](https://img.shields.io/pypi/v/python-cowsay?label=PyPi&labelColor=%23ffd343&color=%230073b7)](https://pypi.org/project/python-cowsay/)
-[![License](https://img.shields.io/badge/GPL--3.0-green?label=license)](https://codeberg.org/james-ansley/cowsay/src/branch/main/LICENSE)
+[![License](https://img.shields.io/badge/GPL--3.0-002d00?label=license)](https://codeberg.org/jamesansley/cowsay/src/branch/main/LICENSE)
 
 A rewrite of cowsay in python. Allows for parsing of existing `.cow` files.
 
@@ -250,9 +250,9 @@ Will yield:
 
 - The original
   [cowsay repository](https://github.com/tnalpgge/rank-amateur-cowsay)
-- [Cowexcept](https://github.com/James-Ansley/cowexcept) to jazz up Python
+- [Cowexcept](https://codeberg.org/jamesansley/cowexcept) to jazz up Python
   exceptions
-- [fortune-python](https://github.com/James-Ansley/fortune) — a rewrite of
+- [fortune-python](https://codeberg.org/jamesansley/fortune) — a rewrite of
   fortune in Python
 - This [collection of additional cow files](https://github.com/paulkaefer/cowsay-files/tree/main)
 
